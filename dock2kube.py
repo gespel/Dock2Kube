@@ -4,11 +4,10 @@ import docker
 
 class Dock2Kube:
     def __init__(self):
-        pass
+        self.client = docker.from_env()
 
-    def buildImage(self, path, version, name):
-        client = docker.from_env()
-        (a, b) = client.images.build(path=path, tag=f"{name}:{version}")
+    def build_image(self, path, version, name):
+        (a, b) = self.client.images.build(path=path, tag=f"{name}:{version}")
         f = open(f"./{name}.tar", "wb")
         for c in a.save():
             f.write(c)
@@ -29,4 +28,4 @@ name = input("Enter a name (default = random uid): ")
 if not name:
     name = uuid.UUID()
 
-d2k.buildImage(path=path, version=version, name=name)
+d2k.build_image(path=path, version=version, name=name)
