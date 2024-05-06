@@ -1,7 +1,7 @@
 FROM bash:latest
 
-COPY initScript.sh /
+COPY . .
 
 RUN apk update && apk add --no-cache curl
 
-CMD ["bash", "/initScript.sh"]
+CMD ["echo", "asdasd"]
