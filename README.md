@@ -22,7 +22,7 @@ Dock2Kube simplifies the process of creating local Docker images tailored for k3
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/your-username/Dock2Kube.git
+    git clone https://github.com/gespel/Dock2Kube.git
     ```
 
 2. Navigate to the cloned directory:
