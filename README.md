@@ -44,10 +44,9 @@ Dock2Kube simplifies the process of creating local Docker images tailored for k3
 2. Run the `dock2kube.py` script:
 
     ```bash
-    python dock2kube.py /path/to/your/Dockerfile
+    python dock2kube.py
     ```
 
-    Replace `/path/to/your/Dockerfile` with the path to your Dockerfile.
 
 3. The script will build the Docker image and tag it with a version based on the current date and time.
 
