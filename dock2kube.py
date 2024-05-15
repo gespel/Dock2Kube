@@ -20,12 +20,13 @@ path = input("Enter filepath (default = current folder): ")
 if not path:
     path = "."
 
+name = input("Enter a name (default = random uid): ")
+if not name:
+    name = uuid.uuid4()
+
 version = input("Enter a version number (default = 1.0.0): ")
 if not version:
     version = "1.0.0"
 
-name = input("Enter a name (default = random uid): ")
-if not name:
-    name = uuid.UUID()
 
 d2k.build_image(path=path, version=version, name=name)
