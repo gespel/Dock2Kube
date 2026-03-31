@@ -3,16 +3,16 @@ use std::fs;
 use regex::Regex;
 
 pub struct DockerfileAnalyzer {
-    pub file_name: String,
+    pub _file_name: String,
     pub file_content: String
 }
 
 impl DockerfileAnalyzer {
     pub fn new(file_name: &str) -> Self {
-        let content = fs::read_to_string(file_name).expect("Unable to read Dockerfile");
+        let file_content = fs::read_to_string(file_name).expect("Unable to read Dockerfile");
         DockerfileAnalyzer {
-            file_name: file_name.to_string(),
-            file_content: content
+            _file_name: file_name.to_string(),
+            file_content
         }
     }
 
@@ -28,9 +28,19 @@ impl DockerfileAnalyzer {
                 };
             },
             Err(e) => {
-                println!("Error while creating the regular expression!");
+                println!("Error while creating the regular expression! {:?}", e);
             }
         }
         return out;
+    }
+
+    pub fn get_base_image(&self) -> Option<String> {
+        let images = self.get_images();
+        if let Some(image) = images.get(0) {
+            Some(image.clone())
+        }
+        else {
+            None
+        }
     }
 }
