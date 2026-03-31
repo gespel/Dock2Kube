@@ -10,6 +10,10 @@ fn main() {
     else {
         println!("No base image was found!");
     }
+
+    for port in analyzer.get_ports() {
+        println!("Found port to be exposed: {}", port);
+    }
 }
 
 

@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs};
 
 use regex::Regex;
 
@@ -28,19 +28,45 @@ impl DockerfileAnalyzer {
                 };
             },
             Err(e) => {
-                println!("Error while creating the regular expression! {:?}", e);
+                println!("Error while creating the regular expressionfor the FROM! {:?}", e);
             }
         }
-        return out;
+        out
     }
 
     pub fn get_base_image(&self) -> Option<String> {
         let images = self.get_images();
-        if let Some(image) = images.get(0) {
+        if let Some(image) = images.first() {
             Some(image.clone())
         }
         else {
             None
         }
+    }
+
+    pub fn get_ports(&self) -> Vec<u16> {
+        let mut out: Vec<u16> = vec![];
+
+        match Regex::new(r"(?m)^EXPOSE\s+([^\s]+)") {
+            Ok(re) => {
+                for caps in re.captures_iter(self.file_content.as_str()) {
+                    if let Some(image_name) = caps.get(1) {
+                        match image_name.as_str().parse::<u16>() {
+                            Ok(port) => {
+                                out.push(port);
+                            }
+                            Err(e) => {
+                                println!("Error while parsing port number! {:?}", e);
+                            }
+                        }
+                    }
+                }
+            }
+            Err(e) => {
+                println!("Error while creating the regular expression for the EXPOSE! {:?}", e);
+            }
+        }
+
+        out
     }
 }
